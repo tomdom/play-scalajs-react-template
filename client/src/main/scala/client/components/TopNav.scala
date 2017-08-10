@@ -2,10 +2,10 @@ package client.components
 
 import client.models.Menu
 import client.routes.ClientRouter.AppPage
-import japgolly.scalajs.react._
+import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.extra.Reusability
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 
 import scala.scalajs.js
 import scalacss.Defaults._
@@ -43,13 +43,14 @@ object TopNav {
   implicit val currentPageReuse = Reusability.by_==[AppPage]
   implicit val propsReuse = Reusability.by((_: Props).selectedPage)
 
-  val component = ReactComponentB[Props]("TopNav")
+  val component = ScalaComponent
+    .builder[Props]("TopNav")
     .render_P { P =>
       <.header(
         <.nav(
           <.ul(
             Style.navMenu,
-            P.menus.map(
+            P.menus.toVdomArray(
               item =>
                 <.li(^.key := item.name,
                      Style.menuItem(
@@ -63,7 +64,7 @@ object TopNav {
     .configure(Reusability.shouldComponentUpdate)
     .build
 
-  def apply(props: Props, ref: js.UndefOr[String] = "", key: js.Any = {}) =
-    component.set(key, ref)(props)
+  def apply(props: Props) =
+    component(props)
 
 }

@@ -8,9 +8,9 @@ import play.api.mvc._
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class IndexController @Inject()(actorSystem: ActorSystem)(
+class IndexController @Inject()(cc: ControllerComponents, actorSystem: ActorSystem)(
     implicit exec: ExecutionContext)
-    extends Controller {
+    extends AbstractController(cc) {
 
   def index = Action.async {
     Future.successful(Ok(views.html.index()))

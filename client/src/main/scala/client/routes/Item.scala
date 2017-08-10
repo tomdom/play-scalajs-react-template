@@ -2,12 +2,13 @@ package client.routes
 
 import client.components.items.{Item1Data, Item2Data, ItemsInfo}
 import client.pages.ItemsPage
-import japgolly.scalajs.react.ReactElement
+import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.extra.router.RouterConfigDsl
+import japgolly.scalajs.react.vdom.Implicits._
 
 sealed abstract class Item(val title: String,
                            val routerPath: String,
-                           val render: () => ReactElement)
+                           val render: () => ScalaComponent.Unmounted[Unit, Unit, Unit])
 
 object Item {
 

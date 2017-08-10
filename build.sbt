@@ -3,7 +3,7 @@ name := "play-scalajs-react-template"
 lazy val commonSettings = Seq(
   organization := "com.github.tomdom",
   version := "0.1-SNAPSHOT",
-  scalaVersion := "2.11.8"
+  scalaVersion := "2.12.3"
 )
 
 lazy val server = (project in file("server"))
@@ -13,14 +13,14 @@ lazy val server = (project in file("server"))
     pipelineStages in Assets := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
     // triggers scalaJSPipeline when using compile or continuous compilation
-    compile in Compile <<= (compile in Compile) dependsOn scalaJSPipeline,
+    compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
     libraryDependencies ++= Seq(
-      "com.vmunier" %% "scalajs-scripts" % "1.0.0",
+      guice,
+      "com.vmunier" %% "scalajs-scripts" % "1.1.1",
       specs2 % Test,
       jdbc,
-      cache,
       ws,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.1" % Test
     )
   )
   .enablePlugins(PlayScala)
@@ -29,17 +29,16 @@ lazy val server = (project in file("server"))
 lazy val client = (project in file("client"))
   .settings(commonSettings: _*)
   .settings(
-    persistLauncher := true,
-    persistLauncher in Test := false,
+    scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "com.github.japgolly.scalajs-react" %%% "core" % "0.10.1",
-      "com.github.japgolly.scalajs-react" %%% "extra" % "0.10.1",
-      "com.github.japgolly.scalacss" %%% "core" % "0.3.1",
-      "com.github.japgolly.scalacss" %%% "ext-react" % "0.3.1"
+      "com.github.japgolly.scalajs-react" %%% "core" % "1.1.0",
+      "com.github.japgolly.scalajs-react" %%% "extra" % "1.1.0",
+      "com.github.japgolly.scalacss" %%% "core" % "0.5.3",
+      "com.github.japgolly.scalacss" %%% "ext-react" % "0.5.3"
     ),
     jsDependencies ++= Seq(
-      "org.webjars.npm" % "react" % "15.3.2" / "react-with-addons.js" commonJSName "React" minified "react-with-addons.min.js",
-      "org.webjars.npm" % "react-dom" % "15.3.2" / "react-dom.js" commonJSName "ReactDOM" minified "react-dom.min.js" dependsOn "react-with-addons.js"
+      "org.webjars.npm" % "react" % "15.6.1" / "react-with-addons.js" commonJSName "React" minified "react-with-addons.min.js",
+      "org.webjars.npm" % "react-dom" % "15.6.1" / "react-dom.js" commonJSName "ReactDOM" minified "react-dom.min.js" dependsOn "react-with-addons.js"
     )
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSWeb)

@@ -4,7 +4,7 @@ import client.components.{LeftNav, TopNav}
 import client.pages.{HomePage, ItemsPage}
 
 import scalacss.ScalaCssReact._
-import scalacss.mutable.GlobalRegistry
+import scalacss.internal.mutable.GlobalRegistry
 import scalacss.Defaults._
 
 object ClientCSS {

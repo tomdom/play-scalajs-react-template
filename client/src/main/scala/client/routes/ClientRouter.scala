@@ -9,7 +9,7 @@ import japgolly.scalajs.react.extra.router.{
   RouterCtl,
   _
 }
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 
 object ClientRouter {
 

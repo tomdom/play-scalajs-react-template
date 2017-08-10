@@ -1,12 +1,12 @@
 package client.components.items
 
-import japgolly.scalajs.react.{ReactComponentB, _}
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.ScalaComponent
+import japgolly.scalajs.react.vdom.html_<^._
 
 object ItemsInfo {
 
   val component =
-    ReactComponentB.static("ItemsInfo", <.div(" Items Root Page  ")).buildU
+    ScalaComponent.static("ItemsInfo")(<.div(" Items Root Page  "))
 
   def apply() = component()
 }

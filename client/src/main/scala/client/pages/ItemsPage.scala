@@ -4,7 +4,7 @@ import client.components.LeftNav
 import client.routes.Item
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 
 import scala.scalajs.js
 import scalacss.Defaults._
@@ -22,7 +22,7 @@ object ItemsPage {
     val content = style(padding(30.px))
   }
 
-  val component = ReactComponentB[Props]("ItemsPage").render_P { P =>
+  val component = ScalaComponent.builder[Props]("ItemsPage").render_P { P =>
     <.div(Style.container,
           <.div(Style.nav,
                 LeftNav(LeftNav.Props(Item.menu, P.selectedPage, P.ctrl))),
@@ -31,7 +31,7 @@ object ItemsPage {
 
   case class Props(selectedPage: Item, ctrl: RouterCtl[Item])
 
-  def apply(props: Props, ref: js.UndefOr[String] = "", key: js.Any = {}) =
-    component.set(key, ref)(props)
+  def apply(props: Props) =
+    component(props)
 
 }

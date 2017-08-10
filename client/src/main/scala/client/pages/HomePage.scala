@@ -1,7 +1,7 @@
 package client.pages
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 
 import scalacss.Defaults._
 import scalacss.ScalaCssReact._
@@ -16,9 +16,8 @@ object HomePage {
                         paddingTop(40.px))
   }
 
-  val component = ReactComponentB
-    .static("HomePage", <.div(Style.content, "ScalaJS-React Template "))
-    .buildU
+  val component = ScalaComponent
+    .static("HomePage")(<.div(Style.content, "ScalaJS-React Template "))
 
   def apply() = component()
 }

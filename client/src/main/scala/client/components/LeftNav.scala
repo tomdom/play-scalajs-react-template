@@ -4,7 +4,7 @@ import client.routes.Item
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.Reusability
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.html_<^._
 
 import scala.scalajs.js.{Any, UndefOr}
 import scalacss.Defaults._
@@ -41,10 +41,10 @@ object LeftNav {
   implicit val currentPageReuse = Reusability.by_==[Item]
   implicit val propsReuse = Reusability.by((_: Props).selectedPage)
 
-  val component = ReactComponentB[Props]("LeftNav")
+  val component = ScalaComponent.builder[Props]("LeftNav")
     .render_P { P =>
       <.ul(Style.container)(
-        P.menus.map(
+        P.menus.toVdomArray(
           item =>
             <.li(^.key := item.title,
                  Style.menuItem(item == P.selectedPage),
@@ -55,7 +55,7 @@ object LeftNav {
     .configure(Reusability.shouldComponentUpdate)
     .build
 
-  def apply(props: Props, ref: UndefOr[String] = "", key: Any = {}) =
-    component.set(key, ref)(props)
+  def apply(props: Props) =
+    component(props)
 
 }
